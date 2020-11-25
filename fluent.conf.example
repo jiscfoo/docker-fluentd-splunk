@@ -1,0 +1,29 @@
+
+## File input
+## read IdP logs with tag=apache.access
+<source>
+  @type tail
+  path /logs/idp-audit.log
+  pos_file /state/logs_idp-audit.log.pos
+  tag idp.audit
+  <parse>
+    @type tsv
+    keys _timestamp,relyingparty,username,ip
+    delimiter |
+    timekey _timestamp
+  </parse>
+</source>
+
+
+## Send to splunk
+<match idp.audit>
+  @type splunk_hec
+  host splunk.example.com
+  port 8088
+  token 0000-00000-00000
+
+  use_ssl true
+  ssl_verify false
+
+  flush_interval 5s
+</match>
