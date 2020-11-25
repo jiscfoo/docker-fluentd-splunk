@@ -1,6 +1,6 @@
 
 ## File input
-## read IdP logs with tag=apache.access
+## read IdP logs with tag=idp.audit
 <source>
   @type tail
   path /logs/idp-audit.log
